@@ -43,7 +43,9 @@ class _PostListState extends State<PostList> {
                   IconButton(
                       icon: const Icon(Icons.thumb_up),
                       onPressed: () => like(post.likePost),
-                      color: post.userLiked ? Colors.green : Colors.black)
+                      color: Theme.of(context).primaryColor
+                      // color: post.userLiked ? Colors.green : Colors.black
+                      )
                 ],
               )
             ],
