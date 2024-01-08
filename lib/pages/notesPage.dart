@@ -1,16 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/services/firestore.dart';
+import '../entities/note/models/note.dart';
+import '../services/internal_memory/basic.dart';
 import '../textInputWidget.dart';
-import '../entities/note/note.dart';
-import '../entities/note/notesList.dart';
+import '../entities/note/ui/note.dart';
 
 
-Note mockNote = Note(
-    head: 'head',
-    body: 'body',
-    author: 'author'
-);
 
 class NotesPage extends StatefulWidget {
 
@@ -22,25 +18,55 @@ class NotesPage extends StatefulWidget {
 
 class _NotesPageState extends State<NotesPage> {
   List<Note> notes = [];
+  bool dataIsLoaded = false;
 
-  final FirestoreService firestoreService = FirestoreService();
+  @override
+  void initState() {
+    super.initState();
+    getNotes();
+    setState(() => dataIsLoaded = !dataIsLoaded);
+  }
 
-  // void newNote(String text) {
-  //   setState(() {
-  //     notes.add(Note(head: text, body: text, author: text));
-  //   });
-  // }
-  //
-  // void editNote(String text) {
-  //   setState(() {
-  //     notes.add(Note(head: text, body: text, author: text));
-  //   });
-  // }
+  Future<void> getNotes()async{
+    List<Map<String, dynamic>> noteList = await getNotesAsync();
+    setNotes(noteList);
+  }
 
-  // text controller
+  setNotes(List<Map<String, dynamic>>? notesList){
+
+    List<Note> notesTemp = [];
+    for (var index = 0; index < notesList!.length; index++){
+      Map<String, dynamic> noteMap = notesList[index];
+      var note = Note.fromJson(noteMap);
+      notesTemp.add(
+          note
+      );
+    }
+    setState(() {
+      notes = notesTemp;
+    });
+  }
+
+  addNote(BuildContext context){
+    createNoteAsync(Note(
+      head: 'Head 1',
+      body: textController.text,
+      // lastUpdate: DateTime.now()
+    ));
+
+    getNotes();
+    textController.clear();
+    Navigator.pop(context);
+
+    // setState(() {
+    //   // notes.add(noteWidget);
+    //   notes = [...notes, noteWidget];
+    // });
+  }
+
   final TextEditingController textController = TextEditingController();
   
-  void openNotebox({String? docID}){
+  void openNote({String? docID}){
     showDialog(context: context, builder: (context) => AlertDialog(
       content: TextField(
         controller: textController,
@@ -48,15 +74,7 @@ class _NotesPageState extends State<NotesPage> {
       actions: [
         // button to save
         ElevatedButton(
-            onPressed: (){
-              if (docID != null){
-                firestoreService.updateNote(docID, textController.text);
-              }
-              else {
-                firestoreService.addNote(textController.text);
-              }
-              textController.clear();
-            },
+            onPressed: () => addNote(context),
             child: Text("Add")
         )
       ]
@@ -65,50 +83,19 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) {
-    // CollectionReference notes = FirebaseFirestore.instance.colle
 
     return Scaffold(
         appBar: AppBar(title: const Text('Hello world!')),
-        body:
-        // Column(children: <Widget>[
-          // Expanded(child: NoteList(notes)),
-          // TextInputWidget(),
-          StreamBuilder<QuerySnapshot>(
-            stream: firestoreService.getNotesStream(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
-              if (snapshot.hasData){
-                List notesList = snapshot.data!.docs;
-                // display as a list
-                return ListView.builder(
-                    itemCount: notesList.length,
-                    itemBuilder: (context, index){
-                      // get each doc
-                      DocumentSnapshot document = notesList[index];
-                      String docID = document.id;
+        body: GridView.count(
+          crossAxisCount: 2,
+          children: [
+            ...notes.map((note) => NoteWidget(note)),
+            if (dataIsLoaded && notes?.length == 0) const Text('No notes...')
+          ],
+        ),
 
-                      // get note from each doc
-                      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                      String body = data['body'] as String;
-
-                      // display
-                      return ListTile(
-                        title: Text(body),
-                        trailing: IconButton(
-                          onPressed: () => {openNotebox(docID: docID)},
-                          icon: const Icon(Icons.settings),
-                        ),
-                      );
-                  }
-                );
-              }
-              
-              return const Text('No notes...');
-            },
-          )
-        // ])
-        ,
         floatingActionButton: FloatingActionButton(
-          onPressed: openNotebox,
+          onPressed: openNote,
           child: const Icon(Icons.add),
         ),
     );

@@ -4,10 +4,12 @@ import 'theme/themeSwitcher.dart';
 import 'pages/notesPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import './services/internal_memory/basic.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await init();
   runApp(const MyApp());
 }
 

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../entities/note/note.dart';
+import '../entities/note/models/note.dart';
 
 class FirestoreService {
   // get collections  of notes
