@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes/entities/note/ui/openedNote.dart';
 import '../models/note.dart';
 
 
@@ -16,7 +17,7 @@ class NoteWidget extends StatefulWidget{
   //   this.lastUpdate
   //   // required this.lastUpdate
   // });
-  NoteWidget(this.note,  { super.key});
+  NoteWidget(this.note, { super.key});
 
 
   // Note.fromJson(Map<String, dynamic> json, {super.key}) :
@@ -33,6 +34,12 @@ class NoteWidget extends StatefulWidget{
 
 
 class _NoteWidgetState extends State<NoteWidget> {
+  void onPressedEditBtn(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => OopenedNote(widget.note)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +49,7 @@ class _NoteWidgetState extends State<NoteWidget> {
       trailing: IconButton(
         onPressed: () => {
           // openNotebox(docID: docID)
+          onPressedEditBtn()
         },
         icon: const Icon(Icons.edit),
       ),

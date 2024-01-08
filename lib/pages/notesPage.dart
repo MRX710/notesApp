@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/services/firestore.dart';
 import '../entities/note/models/note.dart';
+import '../entities/note/ui/openedNote.dart';
 import '../services/internal_memory/basic.dart';
 import '../textInputWidget.dart';
 import '../entities/note/ui/note.dart';
@@ -66,19 +67,21 @@ class _NotesPageState extends State<NotesPage> {
 
   final TextEditingController textController = TextEditingController();
   
-  void openNote({String? docID}){
-    showDialog(context: context, builder: (context) => AlertDialog(
-      content: TextField(
-        controller: textController,
-      ),
-      actions: [
-        // button to save
-        ElevatedButton(
-            onPressed: () => addNote(context),
-            child: Text("Add")
-        )
-      ]
-    ), );
+  void openNote(){
+    // showDialog(context: context, builder: (context) => AlertDialog(
+    //   content: TextField(
+    //     controller: textController,
+    //   ),
+    //   actions: [
+    //     // button to save
+    //     ElevatedButton(
+    //         onPressed: () => addNote(context),
+    //         child: Text("Add")
+    //     )
+    //   ]
+    // ), );
+
+
   }
 
   @override
