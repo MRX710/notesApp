@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeChanger(lightTheme)),
       ],
-      child: AppWithTheme(),
+      child: const AppWithTheme(),
     );
   }
 }

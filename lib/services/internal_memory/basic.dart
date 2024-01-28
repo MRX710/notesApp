@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:notes/entities/note/models/note.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
-import '../../entities/note/models/note.dart';
 
 
 class BaseDirectories{
@@ -51,7 +50,7 @@ Iterable<File> getNoteFiles(Directory notesDirectory){
 Future createNoteAsync(Note note) async {
   Directory notesDirectory = await getNotesDirectory();
 
-  var uuid = Uuid();
+  var uuid = const Uuid();
   String noteId = uuid.v1();
   note.id = noteId;
 

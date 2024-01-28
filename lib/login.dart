@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import './auth.dart';
 
 import 'package:flutter/material.dart';
@@ -12,7 +11,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Hello world!')),
-      body: Body(),
+      body: const Body(),
     );
   }
 }
@@ -43,7 +42,7 @@ class _BodyState extends State<Body> {
   }
 
   Widget loginButton() {
-    return OutlinedButton(onPressed: click, child: Text('Sign in')
+    return OutlinedButton(onPressed: click, child: const Text('Sign in')
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45))
         );
   }

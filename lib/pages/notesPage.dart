@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:notes/services/firestore.dart';
+import 'package:notes/entities/note/ui/openedNote.dart';
 import '../entities/note/models/note.dart';
-import '../entities/note/ui/openedNote.dart';
 import '../services/internal_memory/basic.dart';
-import '../textInputWidget.dart';
 import '../entities/note/ui/note.dart';
 
 
@@ -81,6 +78,15 @@ class _NotesPageState extends State<NotesPage> {
     //   ]
     // ), );
 
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => OopenedNote.create(
+        // Note(
+        //     head: '',
+        //     body: ''
+        // )
+      )),
+    );
 
   }
 
@@ -93,7 +99,7 @@ class _NotesPageState extends State<NotesPage> {
           crossAxisCount: 2,
           children: [
             ...notes.map((note) => NoteWidget(note)),
-            if (dataIsLoaded && notes?.length == 0) const Text('No notes...')
+            if (dataIsLoaded && notes.isEmpty) const Text('No notes...')
           ],
         ),
 

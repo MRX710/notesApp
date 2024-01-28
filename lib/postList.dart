@@ -34,7 +34,7 @@ class _PostListState extends State<PostList> {
               Row(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                     // style: TextStyle(fontSize: 20),
                     child: Text(
                       post.likes.toString(),

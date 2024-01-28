@@ -48,6 +48,7 @@ class Note extends INote{
     'fav': fav,
   };
 
+  @override
   void editNote(){}
 
 }

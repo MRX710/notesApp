@@ -5,10 +5,12 @@ var lightTheme = ThemeData(
   fontFamily: 'Raleway',
   primaryColor: Colors.blue, // Colors.purple
   brightness: Brightness.light,
-  backgroundColor: Colors.blue,
 
   visualDensity: VisualDensity.adaptivePlatformDensity,
   useMaterial3: true,
+  // colorScheme: const ColorScheme(
+  //     background: Colors.blue,
+  // ),
 );
 
 class ThemeChanger extends ChangeNotifier {

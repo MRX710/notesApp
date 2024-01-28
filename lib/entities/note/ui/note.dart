@@ -45,11 +45,13 @@ class _NoteWidgetState extends State<NoteWidget> {
   Widget build(BuildContext context) {
 
     return ListTile(
+      onTap: () => {
+        onPressedEditBtn()
+      },
       title: Text(widget.note.body),
       trailing: IconButton(
         onPressed: () => {
-          // openNotebox(docID: docID)
-          onPressedEditBtn()
+          // onPressedEditBtn()
         },
         icon: const Icon(Icons.edit),
       ),

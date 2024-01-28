@@ -22,7 +22,8 @@ class _NoteListState extends State<NoteList> {
     return ListView.builder(
         itemCount: widget.listItems.length,
         itemBuilder: (context, index) {
-          var note = widget.listItems[index] as Note;
+          var note = widget.listItems[index];
+          return null;
           // return Note(note);
         });
   }

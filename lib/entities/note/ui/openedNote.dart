@@ -55,6 +55,8 @@ class OopenedNote extends StatefulWidget {
 
   OopenedNote(this.note,  { super.key});
 
+  OopenedNote.create() : this(Note(head: 'head1', body: 'body1'));
+
   void saveNote(){
 
   }
@@ -69,12 +71,15 @@ class _OopenedNoteState extends State<OopenedNote> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget?.note?.head ?? '')),
-      body: Text(widget?.note?.body ?? ''),
+      appBar: AppBar(
+          title: Text(widget.note?.head ?? '',
+          
+      )),
+      body: Text(widget.note?.body ?? ''),
 
       floatingActionButton: FloatingActionButton(
         onPressed: widget.saveNote,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.save),
       ),
     );
   }

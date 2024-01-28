@@ -8,7 +8,7 @@ Future<User?> signInWithGoogle() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
@@ -21,13 +21,13 @@ Future<User?> signInWithGoogle() async {
         idToken: googleSignInAuthentication?.idToken,
         accessToken: googleSignInAuthentication?.accessToken);
     final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
+        await auth.signInWithCredential(credential);
     final User? user = authResult.user;
 
     assert(!user!.isAnonymous);
     assert(await user?.getIdToken() != null);
 
-    final User? currentUser = _auth.currentUser;
+    final User? currentUser = auth.currentUser;
     assert(currentUser?.uid == user?.uid);
 
     return user;
